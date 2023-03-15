@@ -16,9 +16,22 @@ function App() {
     <div className='App'>
       <Header course = {course}/>
       <Conten 
-      task1 = {task1} part1 = {part1}
-      task2 = {task2} part2 = {part2}
-      task3 = {task3} part3 = {part3}
+        tasks={
+          [
+            {
+              task:task1,
+              part:part1,
+            },
+            {
+              task:task2,
+              part:part2,
+            },
+            {
+              task:task3,
+              part:part3,
+            },
+          ]
+        }
       />
       <Total task1 = {task1} task2 = {task2} task3 = {task3}/>
     </div>
