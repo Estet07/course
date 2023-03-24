@@ -1,8 +1,10 @@
 .App {
   text-align: center;
 }
-h1 {
+h1,
+h2 {
   color: purple;
+  font-size: 2em;
 }
 .task {
   color: red;
@@ -11,4 +13,7 @@ h1 {
 span {
   color: green;
 }
-
+.header {
+  display: flex;
+  justify-content: space-around;
+}
