@@ -1,8 +1,13 @@
 import "./App.css";
-import Header from "./components/Header/Header";
-import Total from "./components/Total/Total";
-import Content from "./components/Content/Content";
-import { useState } from "react";
+// import Header from "./components/Header/Header";
+// import Total from "./components/Total/Total";
+// import Content from "./components/Content/Content";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+const getPersons = () => {
+  return axios.get('http://localhost:3001/persons')
+}
 
 function App() {
   // const course = [
@@ -43,12 +48,33 @@ function App() {
   //     ],
   //   },
   // ];
-  const [persons, setPerson] = useState ([
-    {name: "Alexandr Piskorskii"},
-    {name: "Kenan Aliev"}
+  // const [persons, setPerson] = useState ([
+  //   {
+  //     id: 1,
+  //     name: "Alexandr Piskorskii",
+  //     number: "996 555 75 94 55" 
+  //   },
+  //   {
+  //     id:2,
+  //     name: "Kenan Aliev",
+  //     number: "996 555 00 00 00"
+  //   },
+  //   {
+  //     id:3,
+  //     name: "Arsen Yusupov",
+  //     number: "996 555 11 11 11"
+  //   }
     
-  ])
+    
+  // ])
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
+
+  useEffect(() => {
+    getPersons()
+    .then(res => 
+      setPersons(res.data))
+  }, [])
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -59,26 +85,31 @@ function App() {
   if (foundPerson) {
     alert("такой пользователь уже существует");
   } else {
-    setPerson(persons.concat(personObject));
+    setPersons(persons.concat(personObject));
     setNewName('');
   }
   }
 
   return (
     <div className="App">
-      <h1>Пользователи</h1>
+      <h1>Контакты</h1>
       <form onSubmit={addPerson}>
         <input 
           type="text" 
           value={newName}
           onChange={event => setNewName(event.target.value)}
             />
+        <input 
+          type="text" 
+          value={newName}
+          onChange={event => setNewName(event.target.value)}
+            />    
         <input type="submit" value="Добавить пользователя"/>
       </form>
       <div>
         {persons.map((person) => {
           return (
-          <p className="person" key={person.name}><span>Пользователь - </span> {person.name}</p>
+          <p className="person" key={person.id}><span>Пользователь - </span> {person.name} - {person.number}</p>
           );
         })}
       </div>

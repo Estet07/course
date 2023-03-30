@@ -1,0 +1,19 @@
+{
+    "persons": [
+        {
+            "id": 1,
+            "name": "Alexandr Piskorskii",
+            "number": "996 555 75 94 55" 
+          },
+          {
+            "id":2,
+            "name": "Kenan Aliev",
+            "number": "996 555 00 00 00"
+          },
+          {
+            "id":3,
+            "name": "Arsen Yusupov",
+            "number": "996 555 11 11 11"
+          }
+    ]
+  }
