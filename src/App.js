@@ -109,7 +109,10 @@ function App() {
       <div>
         {persons.map((person) => {
           return (
-          <p className="person" key={person.id}><span>Пользователь - </span> {person.name} - {person.number}</p>
+            <div className="person" key={person.id}>
+              <p className="name"><span>Пользователь - </span> {person.name}</p>
+              <p className="number"><span>Номер телефона - </span> {person.number}</p>
+            </div>
           );
         })}
       </div>
