@@ -9,6 +9,10 @@ const getPersons = () => {
   return axios.get('http://localhost:3001/persons')
 }
 
+const createPersons = (newName) => {
+  return axios.post('http://localhost:3001/persons', newName)
+}
+
 function App() {
   // const course = [
   //   {
@@ -69,6 +73,7 @@ function App() {
   // ])
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   useEffect(() => {
     getPersons()
@@ -79,14 +84,20 @@ function App() {
   const addPerson = (event) => {
     event.preventDefault();
     const personObject = {
-      name: newName.toLowerCase().replace(/\b\w/g, (match) => match.toUpperCase())
-    };
+      name: newName.toLowerCase().replace(/\b\w/g, (match) => match.toUpperCase()),
+      number: newNumber
+    }
     const foundPerson = persons.find(person => person.name === personObject.name);
   if (foundPerson) {
     alert("такой пользователь уже существует");
   } else {
-    setPersons(persons.concat(personObject));
-    setNewName('');
+    // setPersons(persons.concat(personObject));
+    // setNewName('');
+    createPersons(personObject)
+      .then(res => setPersons(persons.concat(res.data)))
+    
+    setNewName('')
+    setNewNumber('')
   }
   }
 
@@ -95,14 +106,16 @@ function App() {
       <h1>Контакты</h1>
       <form onSubmit={addPerson}>
         <input 
+          placeholder="Введите имя и фамилию"
           type="text" 
           value={newName}
           onChange={event => setNewName(event.target.value)}
             />
         <input 
+          placeholder="Введите номер"
           type="text" 
-          value={newName}
-          onChange={event => setNewName(event.target.value)}
+          value={newNumber}
+          onChange={event => setNewNumber(event.target.value)}
             />    
         <input type="submit" value="Добавить пользователя"/>
       </form>
